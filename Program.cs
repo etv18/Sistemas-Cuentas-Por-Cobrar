@@ -14,8 +14,11 @@ namespace ProyectiFinal_CxC
           
             // fmLogin login = new fmLogin();
             Menu menu = new Menu();
-            Application.Run(menu);
-
+            CrearFactura factura = new CrearFactura();
+            Application.Run(factura);
+            
+            
+            /*REMEMBER: TO CREATE ALL THE OBJECTS HERE AND THEN OPEN AND CLOSE THEM USING CONDITIONALS FROM HERE.*/
             //if (login.UserAuthenticated)
             //{
             //    Menu menu = new Menu();

@@ -12,23 +12,46 @@ namespace ProyectiFinal_CxC
 {
     public partial class Menu : Form
     {
+        public bool CrearFactura { get;private set; }
+        public bool  Cobrar { get; private set; }
+        public bool VerFacturas { get; private set; }
+        public bool CrearUsuario { get; private set; }
+        private string conStr;
+        public bool Close { get; private set; }
         public Menu()
         {
             InitializeComponent();
         }
 
+        public Menu(string conStr)
+        {
+            this.conStr = conStr;
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Desea Cerrar el programa?", "Aviso", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                Close();
-            }
+            //if (MessageBox.Show("¿Desea Cerrar el programa?", "Aviso", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //{
+            //    Close = true;
+            //    Close();
+            //}
+
+            Close();
 
         }
 
         private void btnHide_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnCrearFactura_Click(object sender, EventArgs e)
+        {
+            CrearFactura= true;
+
+            CrearFactura factura= new CrearFactura(conStr);
+
+            factura.Show();
         }
     }
 }

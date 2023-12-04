@@ -24,3 +24,4 @@ C:\CSprojects\ProyectiFinal_CxC\bin\Debug\net7.0-windows\runtimes\unix\lib\netco
 C:\CSprojects\ProyectiFinal_CxC\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.csproj.CopyComplete
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.Menu.resources
+C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.CrearFactura.resources

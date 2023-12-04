@@ -70,6 +70,7 @@
             this.btnCrearFactura.TabIndex = 7;
             this.btnCrearFactura.Text = "Crear Facturar";
             this.btnCrearFactura.UseVisualStyleBackColor = false;
+            this.btnCrearFactura.Click += new System.EventHandler(this.btnCrearFactura_Click);
             // 
             // pictureBox1
             // 
