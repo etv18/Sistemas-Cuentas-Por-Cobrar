@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,15 +18,53 @@ namespace ProyectiFinal_CxC
         public bool BackOrClose { get; private set; }
         private double costo;
         private int noFactura;
-        private string estado, descripcion, conStr;
+        private string estado, descripcion, conStr, cliente, dbUser,dbPassword;
         public CrearFactura()
         {
             InitializeComponent();
+            StringConnector();
         }
 
-        public CrearFactura(string conStr)
+        private void GetCredentialsDB()
         {
-            this.conStr = conStr;
+            string env_v = "C_DTLS"; //Name of the enviroment variable.
+            try
+            {
+                string configFilePath = Environment.GetEnvironmentVariable(env_v);
+
+                if (File.Exists(configFilePath))
+                {
+                    string[] lines = File.ReadAllLines(configFilePath);
+
+                    if (lines.Length > 0)
+                    {
+                        string[] cdtls = lines[0].Split(',');
+
+                        if (cdtls.Length == 2)
+                        {
+                            dbUser = cdtls[0].Trim();
+                            dbPassword = cdtls[1].Trim();
+
+                        }
+                        else MessageBox.Show("The file it doesn't have the expected format.");
+                    }
+                    else MessageBox.Show("The file is empty");
+
+                }
+                else MessageBox.Show($"The enviroment variable {env_v} is not set or the file doesn't exists in the especified path.");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error trying to read the file: " + ex.Message);
+            }
+        }
+
+        private void StringConnector()
+        {
+            GetCredentialsDB();
+            string connectionString = $"Data Source=LAPTOP-68IMB34E;Initial Catalog=ProyectoFinal;User ID={dbUser};Password={dbPassword};Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            conStr = connectionString;
         }
 
         private void btnHide_Click(object sender, EventArgs e)
@@ -74,7 +113,7 @@ namespace ProyectiFinal_CxC
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-         
+            GuardarFactura();
         }
 
         CultureInfo culture = new CultureInfo("en-US");
@@ -106,8 +145,25 @@ namespace ProyectiFinal_CxC
                     ObtenerCosto(); //aqui la variable costo tomara el valor de la caja de texto costo.
                     DateTime dt = DateTime.Now;
                     descripcion = txtDescripcion.Text;
+                    cliente = txtCliente.Text;
 
-                    
+                    string query = "INSERT INTO factura (noFactura, cliente, costo, fecha, descripcion) VALUES (@noFactura, @cliente, @costo, @dt, @descripcion)";
+
+                    SqlCommand cmd = new SqlCommand(query, con);
+
+                    cmd.Parameters.AddWithValue("@noFactura",noFactura);
+                    cmd.Parameters.AddWithValue("@cliente",cliente);
+                    cmd.Parameters.AddWithValue("@costo",costo);
+                    cmd.Parameters.AddWithValue("@descripcion",descripcion);
+                    cmd.Parameters.AddWithValue("@dt",dt);
+
+                    cmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Factura correctamente guardada!");
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Ha ocurrido un error: "+ex.Message);
                 }
             }
         }

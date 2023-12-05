@@ -53,6 +53,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.dtpNow = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtCliente = new System.Windows.Forms.TextBox();
+            this.panel6 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
@@ -188,7 +191,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(57, 248);
+            this.label3.Location = new System.Drawing.Point(57, 275);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 20);
@@ -200,7 +203,7 @@
             this.txtCosto.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCosto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.txtCosto.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.txtCosto.Location = new System.Drawing.Point(136, 239);
+            this.txtCosto.Location = new System.Drawing.Point(136, 266);
             this.txtCosto.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtCosto.Multiline = true;
             this.txtCosto.Name = "txtCosto";
@@ -212,7 +215,7 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.Highlight;
             this.panel3.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.panel3.Location = new System.Drawing.Point(136, 266);
+            this.panel3.Location = new System.Drawing.Point(136, 293);
             this.panel3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(164, 1);
@@ -344,12 +347,48 @@
             this.label7.TabIndex = 43;
             this.label7.Text = "Fecha";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(57, 230);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 20);
+            this.label8.TabIndex = 46;
+            this.label8.Text = "Cliente";
+            // 
+            // txtCliente
+            // 
+            this.txtCliente.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtCliente.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.txtCliente.Location = new System.Drawing.Point(136, 221);
+            this.txtCliente.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtCliente.Multiline = true;
+            this.txtCliente.Name = "txtCliente";
+            this.txtCliente.Size = new System.Drawing.Size(164, 26);
+            this.txtCliente.TabIndex = 45;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.SystemColors.Highlight;
+            this.panel6.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.panel6.Location = new System.Drawing.Point(136, 248);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(164, 1);
+            this.panel6.TabIndex = 44;
+            // 
             // CrearFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(916, 532);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtCliente);
+            this.Controls.Add(this.panel6);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dtpNow);
             this.Controls.Add(this.label6);
@@ -413,5 +452,8 @@
         private Label label6;
         private DateTimePicker dtpNow;
         private Label label7;
+        private Label label8;
+        private TextBox txtCliente;
+        private Panel panel6;
     }
 }

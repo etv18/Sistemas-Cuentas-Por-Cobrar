@@ -12,18 +12,17 @@ namespace ProyectiFinal_CxC
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
           
-            // fmLogin login = new fmLogin();
+            fmLogin login = new fmLogin();
             Menu menu = new Menu();
-            CrearFactura factura = new CrearFactura();
-            Application.Run(factura);
-            
-            
+            //CrearFactura factura = new CrearFactura();
+            Application.Run(login);
+
+
             /*REMEMBER: TO CREATE ALL THE OBJECTS HERE AND THEN OPEN AND CLOSE THEM USING CONDITIONALS FROM HERE.*/
-            //if (login.UserAuthenticated)
-            //{
-            //    Menu menu = new Menu();
-            //    Application.Run(menu);
-            //}
+            if (login.UserAuthenticated)
+            {
+                Application.Run(menu);
+            }
         }
     }
 }

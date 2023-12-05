@@ -49,8 +49,7 @@ namespace ProyectiFinal_CxC
         {
             CrearFactura= true;
 
-            CrearFactura factura= new CrearFactura(conStr);
-
+            CrearFactura factura= new CrearFactura();
             factura.Show();
         }
     }
