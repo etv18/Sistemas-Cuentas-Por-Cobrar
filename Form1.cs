@@ -56,7 +56,7 @@ namespace ProyectiFinal_CxC
         private void StringConnector()
         {
             GetCredentialsDB();
-            string connectionString = $"Data Source=LAPTOP-68IMB34E;Initial Catalog=Gestion_CxC;User ID={dbUser};Password={dbPassword};Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            string connectionString = $"Data Source=LAPTOP-68IMB34E;Initial Catalog=ProyectoFinal;User ID={dbUser};Password={dbPassword};Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             conStr = connectionString;
         }
 
@@ -113,6 +113,73 @@ namespace ProyectiFinal_CxC
         private void btnLogin_Click(object sender, EventArgs e)
         {
             ValidUser();
+            
+        }
+        string USER, PASSWORD;
+        private bool Validacion()
+        {
+            bool valido = false;
+            bool validoU = false;
+            bool validoP = false;
+
+            using (SqlConnection con = new SqlConnection(conStr))
+            {
+                string user = txtUser.Text;
+                List<string> users = new List<string>();
+                List<string> passwords = new List<string>();
+                string query = "SELECT user_name, password FROM usuarios";
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    con.Open();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        int userIndex = reader.GetOrdinal("user_name");
+                        int passIndex = reader.GetOrdinal("password");
+
+                        while (reader.Read())
+                        {
+                            string datoUser_name = (string)reader.GetString(userIndex);
+                            string datoPassword = (string)reader[passIndex];
+                            users.Add(datoUser_name);
+                            passwords.Add(datoPassword);
+                        }
+                        foreach (string elem in users)
+                        {
+                            if (elem.Equals(user))
+                            {
+                                validoU = true;
+                                USER = elem;
+                                break;
+                            }
+                        }
+                        foreach(string elem in passwords)
+                        {
+                            if (elem.Equals(passwords))
+                            {
+                                validoP = true;
+                                PASSWORD = elem;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontro ningun dato");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+            if (validoU == true && validoP == true)
+            {
+                valido = true;
+            }
+            return valido;
         }
 
         private void btnSee_Click(object sender, EventArgs e)

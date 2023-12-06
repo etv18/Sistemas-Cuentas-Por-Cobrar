@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -111,11 +112,13 @@ namespace ProyectiFinal_CxC
         private void rbtnContado_CheckedChanged(object sender, EventArgs e)
         {
             lblEstadoFactura.Text = "Salda";
+            pendiente= false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             GuardarFactura();
+            //ImprimirFactura();
         }
 
         CultureInfo culture = new CultureInfo("en-US");
@@ -168,12 +171,22 @@ namespace ProyectiFinal_CxC
                     cmd.ExecuteNonQuery();
 
                     MessageBox.Show("Factura correctamente guardada!");
+                    Limpiar();
                 }
                 catch(Exception ex)
                 {
                     MessageBox.Show("Ha ocurrido un error: "+ex.Message);
                 }
             }
+        }
+
+        private void Limpiar()
+        {
+            txtNoFactura.Text = "";
+            txtDescripcion.Text = "";
+            txtCliente.Text = "";
+            txtCosto.Text = "";
+            rbtnCredito.Checked= true;
         }
 
         private void txtNoFactura_TextChanged(object sender, EventArgs e)
@@ -203,6 +216,46 @@ namespace ProyectiFinal_CxC
             }
 
             costo = double.Parse(montoStr);
+        }
+
+        private void ImprimirFactura()
+        {
+            DateTime date= DateTime.Now;
+            string nombreArchivo = $"{date}factura.txt";
+            int numeroFactura = int.Parse(txtNoFactura.Text);
+            double balance = 0;
+            if(lblEstadoFactura.Text == "Pendiente")
+            {
+                balance = costo;
+            }
+            // Generar los datos de la factura con las variables
+          string[] datosFactura = {
+                "Factura",
+                "-----------------------------------------------------",
+                $"Fecha\t\t{date}",
+                $"No. {numeroFactura}", // Reemplaza 'valor' con la variable correspondiente
+                $"Cliente\t\t{cliente}",
+                $"Monto\t\t{costo}",
+                $"Descripcion\t{descripcion}",
+                $"Estado\t\t{estado}",
+                $"Balance\t\t{balance}"
+          };
+
+            try
+            {
+                // Ruta donde se guardará el archivo
+                string rutaArchivo = @"C:\Facturas";
+          
+
+                // Escribe los datos en el archivo
+                File.WriteAllLines(rutaArchivo, datosFactura);
+
+                MessageBox.Show("Archivo de factura creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al crear el archivo de factura: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

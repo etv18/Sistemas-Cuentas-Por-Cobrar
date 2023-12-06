@@ -30,13 +30,13 @@ namespace ProyectiFinal_CxC
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            //if (MessageBox.Show("¿Desea Cerrar el programa?", "Aviso", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //{
-            //    Close = true;
-            //    Close();
-            //}
+            if (MessageBox.Show("¿Desea Cerrar el programa?", "Aviso", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Close = true;
+                Close();
+            }
 
-            Close();
+            //Close();
 
         }
 
@@ -57,6 +57,23 @@ namespace ProyectiFinal_CxC
         {
             Cobro cobro = new Cobro();
             cobro.Show();
+        }
+
+        private void btnVerFacturas_Click(object sender, EventArgs e)
+        {
+            VerFacturas verFacturas= new VerFacturas();
+            verFacturas.Show();
+        }
+
+        private void Menu_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCrearUser_Click(object sender, EventArgs e)
+        {
+            Crear_Usuario usuario = new Crear_Usuario();
+            usuario.Show();
         }
     }
 }

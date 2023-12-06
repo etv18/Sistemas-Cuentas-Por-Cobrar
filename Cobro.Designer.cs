@@ -92,6 +92,7 @@
             this.txtNoFactura.Name = "txtNoFactura";
             this.txtNoFactura.Size = new System.Drawing.Size(112, 26);
             this.txtNoFactura.TabIndex = 26;
+            this.txtNoFactura.TextChanged += new System.EventHandler(this.txtNoFactura_TextChanged);
             // 
             // panel1
             // 
@@ -184,7 +185,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(100, 382);
+            this.label2.Location = new System.Drawing.Point(42, 386);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(155, 20);
@@ -199,11 +200,11 @@
             this.numPago,
             this.monto,
             this.dataGridViewTextBoxColumn1});
-            this.dgvPagos.Location = new System.Drawing.Point(34, 416);
+            this.dgvPagos.Location = new System.Drawing.Point(41, 416);
             this.dgvPagos.Name = "dgvPagos";
             this.dgvPagos.RowHeadersWidth = 51;
             this.dgvPagos.RowTemplate.Height = 29;
-            this.dgvPagos.Size = new System.Drawing.Size(428, 145);
+            this.dgvPagos.Size = new System.Drawing.Size(439, 145);
             this.dgvPagos.TabIndex = 30;
             // 
             // numPago

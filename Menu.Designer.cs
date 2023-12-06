@@ -120,6 +120,7 @@
             this.btnVerFacturas.TabIndex = 13;
             this.btnVerFacturas.Text = "Ver Facturas";
             this.btnVerFacturas.UseVisualStyleBackColor = false;
+            this.btnVerFacturas.Click += new System.EventHandler(this.btnVerFacturas_Click);
             // 
             // pictureBox3
             // 
@@ -144,6 +145,7 @@
             this.btnCrearUser.TabIndex = 15;
             this.btnCrearUser.Text = "Crear Usuario";
             this.btnCrearUser.UseVisualStyleBackColor = false;
+            this.btnCrearUser.Click += new System.EventHandler(this.btnCrearUser_Click);
             // 
             // pictureBox4
             // 
@@ -206,6 +208,7 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menu";
+            this.Load += new System.EventHandler(this.Menu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();

@@ -26,3 +26,5 @@ C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.cspro
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.Menu.resources
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.CrearFactura.resources
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.Cobro.resources
+C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.VerFacturas.resources
+C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.Crear_Usuario.resources

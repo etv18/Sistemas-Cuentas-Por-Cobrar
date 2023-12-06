@@ -77,7 +77,60 @@ namespace ProyectiFinal_CxC
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            
+           // if (!VerificarFactura()) MessageBox.Show("Factura no encontrada", "Aviso");
             MostrarDatos();
+        }
+
+        private bool VerificarFactura()
+        {
+            bool encontrado = false;
+            using(SqlConnection con = new SqlConnection(conStr))
+            {
+
+                 int noFactura = int.Parse(txtNoFactura.Text);
+                 con.Open();
+                 string query = "SELECT * FROM factura WHERE noFactura = @noFactura";
+                List<int> noFacturas = new List<int>();
+                try
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@noFactura", noFactura);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        int columnIndex = reader.GetOrdinal("noFactura");
+
+                        while (reader.Read())
+                        {
+                            int dataNoFatura = (int)reader.GetInt32(columnIndex);
+                            noFacturas.Add(dataNoFatura);
+                        }
+
+                        foreach(int elem in noFacturas)
+                        {
+                            if (noFactura.Equals(elem))
+                            {
+                                encontrado = true; 
+                                break;
+                            }
+                        }
+                    }
+                    reader.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+
+                con.Close();
+            }
+
+
+            return encontrado;
         }
 
         private void MostrarDatos()
@@ -182,6 +235,7 @@ namespace ProyectiFinal_CxC
 
                             cmd.ExecuteNonQuery();
                             MessageBox.Show("Cobro guardado exitosamente !");
+                            Limpiar();
                             cobrar = true;
                         }
                     }
@@ -204,6 +258,12 @@ namespace ProyectiFinal_CxC
             }
 
         }
+
+        private void Limpiar()
+        {
+            txtPago.Text = "\0";
+            txtPago.Text = "0";
+        }
         private bool VerificarPagoMenorABalance()
         {
             bool cobrar = false;
@@ -213,7 +273,7 @@ namespace ProyectiFinal_CxC
                 {
                     int noFactura = int.Parse(txtNoFactura.Text);
 
-                    string query = "SELECT balance FROM factura WHERE noFactura = @noFactura";
+                    string query = "SELECT balance, estado FROM factura WHERE noFactura = @noFactura";
 
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@noFactura", noFactura);
@@ -221,10 +281,12 @@ namespace ProyectiFinal_CxC
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     decimal montoBalance;
+                    string estadoFactura;
                    
                     if (reader.Read())
                     {
                         montoBalance = (decimal)reader["balance"];
+                        estadoFactura = (string)reader["estado"];
 
                         decimal dpago = (decimal)pago;
                         if (dpago <= montoBalance)
@@ -232,10 +294,13 @@ namespace ProyectiFinal_CxC
                             montoBalance -= dpago;
                             cobrar = true;
                         }
+                        else if (estadoFactura != "Pendiente")
+                        {
+                            MessageBox.Show($"Estado de la factura: {estadoFactura}.", "Error al realizar cobro.");
+                        }
                         else
                         {
-                            MessageBox.Show($"Introduzca una cifra menor o igual a {montoBalance}");
-
+                            MessageBox.Show($"Introduzca una cifra menor o igual a {montoBalance}", "Error al realizar cobro.");
                         }
 
                     }
@@ -324,39 +389,6 @@ namespace ProyectiFinal_CxC
             }
         }
 
-        /*using(SqlConnection con = new SqlConnection(conStr))
-            {
-                try
-                {
-                    con.Open();
-                    noFactura = int.Parse(txtNoFactura.Text);
-                    ObtenerCosto(); //aqui la variable costo tomara el valor de la caja de texto costo.
-                    DateTime dt = DateTime.Now;
-                    descripcion = txtDescripcion.Text;
-                    cliente = txtCliente.Text;
-                    estado = lblEstadoFactura.Text;
-
-                    string query = "INSERT INTO factura (noFactura, cliente, costo, fecha, descripcion, estado) VALUES (@noFactura, @cliente, @costo, @dt, @descripcion, @estado)";
-
-                    SqlCommand cmd = new SqlCommand(query, con);
-
-                    cmd.Parameters.AddWithValue("@noFactura",noFactura);
-                    cmd.Parameters.AddWithValue("@cliente",cliente);
-                    cmd.Parameters.AddWithValue("@costo",costo);
-                    cmd.Parameters.AddWithValue("@descripcion",descripcion);
-                    cmd.Parameters.AddWithValue("@dt",dt);
-                    cmd.Parameters.AddWithValue("@estado",estado);
-
-                    cmd.ExecuteNonQuery();
-
-                    MessageBox.Show("Factura correctamente guardada!");
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("Ha ocurrido un error: "+ex.Message);
-                }
-            }*/
-
         private void ObtenerPago()
         {
             if (txtPago.Text.Length > 0)
@@ -397,9 +429,31 @@ namespace ProyectiFinal_CxC
 
         }
 
+        private void ImprimirFactura()
+        {
+            DateTime dateTime= DateTime.Now;
+            TextWriter writer = new StreamWriter(@"C:\Factura\factura.txt");
+
+            for(int i = 0; i<dgvFactura.Rows.Count-1; i++) {
+                for(int j = 0; j<dgvFactura.Columns.Count-1; j++)
+                {
+                    writer.Write("\t" + dgvFactura.Rows[i].Cells[j].Value.ToString() + "\t" + "|");
+                }
+                writer.WriteLine("");
+                writer.WriteLine("-----------------------------------------------------------------");
+            }
+            writer.Close();
+            MessageBox.Show("Factura Hecha.");
+        }
+
         private void dgvFactura_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             this.dgvPagos.Rows[e.RowIndex].Cells["numPago"].Value = (e.RowIndex + 1).ToString();
+        }
+
+        private void txtNoFactura_TextChanged(object sender, EventArgs e)
+        {
+            MostrarDatos();
         }
 
         private void btnBack_Click(object sender, EventArgs e)
