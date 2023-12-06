@@ -25,3 +25,4 @@ C:\CSprojects\ProyectiFinal_CxC\bin\Debug\net7.0-windows\runtimes\win\lib\netcor
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.csproj.CopyComplete
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.Menu.resources
 C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.CrearFactura.resources
+C:\CSprojects\ProyectiFinal_CxC\obj\Debug\net7.0-windows\ProyectiFinal_CxC.Cobro.resources

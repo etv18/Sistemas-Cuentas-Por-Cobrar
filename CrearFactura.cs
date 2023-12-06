@@ -16,6 +16,7 @@ namespace ProyectiFinal_CxC
     public partial class CrearFactura : Form
     {
         public bool BackOrClose { get; private set; }
+        private bool pendiente;
         private double costo;
         private int noFactura;
         private string estado, descripcion, conStr, cliente, dbUser,dbPassword;
@@ -104,6 +105,7 @@ namespace ProyectiFinal_CxC
         private void rbtnCredito_CheckedChanged(object sender, EventArgs e)
         {
             lblEstadoFactura.Text = "Pendiente";
+            pendiente = true;
         }
 
         private void rbtnContado_CheckedChanged(object sender, EventArgs e)
@@ -146,8 +148,12 @@ namespace ProyectiFinal_CxC
                     DateTime dt = DateTime.Now;
                     descripcion = txtDescripcion.Text;
                     cliente = txtCliente.Text;
+                    estado = lblEstadoFactura.Text;
+                    double balance = 0;
+                    if (pendiente) balance = costo;
+                    
 
-                    string query = "INSERT INTO factura (noFactura, cliente, costo, fecha, descripcion) VALUES (@noFactura, @cliente, @costo, @dt, @descripcion)";
+                    string query = "INSERT INTO factura (noFactura, cliente, costo, fecha, descripcion, estado, balance) VALUES (@noFactura, @cliente, @costo, @dt, @descripcion, @estado, @balance)";
 
                     SqlCommand cmd = new SqlCommand(query, con);
 
@@ -156,6 +162,8 @@ namespace ProyectiFinal_CxC
                     cmd.Parameters.AddWithValue("@costo",costo);
                     cmd.Parameters.AddWithValue("@descripcion",descripcion);
                     cmd.Parameters.AddWithValue("@dt",dt);
+                    cmd.Parameters.AddWithValue("@estado",estado);
+                    cmd.Parameters.AddWithValue("@balance",balance);
 
                     cmd.ExecuteNonQuery();
 
@@ -167,32 +175,7 @@ namespace ProyectiFinal_CxC
                 }
             }
         }
-        /*
-                 private void SaveUser()
-        {
-            using (SqlConnection con = new SqlConnection(conStr))
-            {
-                con.Open();
-                string name = txtName.Text;
-                string user_name = txtuser_name.Text;
-                string password = txtpassword.Text;
 
-                string query = "INSERT INTO usuarios (name, user_name, password) VALUES (@name, @user_name, @password)";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-            
-                cmd.Parameters.AddWithValue("@name", name);
-                cmd.Parameters.AddWithValue("@user_name", user_name);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Usuario correctamente guardado");
-            }
-
-            userSaved = true;
-        }
-         
-         */
         private void txtNoFactura_TextChanged(object sender, EventArgs e)
         {
            if (!System.Text.RegularExpressions.Regex.IsMatch(txtNoFactura.Text, "^[0-9]*$"))

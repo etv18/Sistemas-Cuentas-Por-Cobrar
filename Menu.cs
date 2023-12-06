@@ -52,5 +52,11 @@ namespace ProyectiFinal_CxC
             CrearFactura factura= new CrearFactura();
             factura.Show();
         }
+
+        private void btnCobrar_Click(object sender, EventArgs e)
+        {
+            Cobro cobro = new Cobro();
+            cobro.Show();
+        }
     }
 }

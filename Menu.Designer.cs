@@ -105,6 +105,7 @@
             this.btnCobrar.TabIndex = 11;
             this.btnCobrar.Text = "Realizar Cobro";
             this.btnCobrar.UseVisualStyleBackColor = false;
+            this.btnCobrar.Click += new System.EventHandler(this.btnCobrar_Click);
             // 
             // btnVerFacturas
             // 
